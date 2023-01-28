@@ -13,12 +13,12 @@ const AboutUs = () => {
                     </p>
         
                     <h2 className="email text-large">
-                        support@pepcoding.com
+                        subham@gmail.com
                     </h2>
         
                     <p className="happy-to-help">
                         We are here to answer any questions regarding our resume generator, do not hesitate to contact us for
-                        any reason. We will respond in less than 24 hours from receipt of the email. Thanks for trusting us
+                        any reason. We will respond in from receipt of the email.
                     </p>
                 </div>
                 <div className="contact-right-section">

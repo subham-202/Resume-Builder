@@ -2,14 +2,28 @@ import React from "react";
 import ResumePreview from './resumePreview'
 import  jsPDF  from "jspdf";
 import html2canvas from 'html2canvas';
+import { connect } from "react-redux";
+import {useFirestore} from 'react-redux-firebase'
 
    function Finalize(props) {
     let educationSection= props.educationSection
     let contactSection=props.contactSection
     let documentd=props.document
+    let firestore = useFirestore()
   
     const saveToDatabase= async()=>{
-     
+     //add or update to firestore
+      let user = await firestore.collection('users').doc(props.auth.uid).get()
+      user = user.data()
+      let obj
+      if(user.resumeIds!=undefined){
+          obj = {...user.resumeIds,[documentd.id]:{educationSection:educationSection,contactSection:contactSection,document:documentd}}
+      }else{
+          obj = {[documentd.id]:{educationSection:educationSection,contactSection:contactSection,document:documentd}}
+      }
+      await firestore.collection('users').doc(props.auth.uid).update({
+        resumeIds : obj
+      })
     }
      const downloadResume=()=> {
     
@@ -32,7 +46,7 @@ import html2canvas from 'html2canvas';
       <div className="container full finalize-page" >
       <div className="funnel-section ">
           <div className="finalize-preview-card " id="resumePreview">
-            <ResumePreview contactSection={contactSection} educationSection={educationSection} skinCd={props?.document?.skinCd}></ResumePreview>   
+            <ResumePreview contactSection={props.contactSection} educationSection={props.educationSection} skinCd={props?.document?.skinCd}></ResumePreview>   
           </div>
           <div className="finalize-settings center">            
 
@@ -49,14 +63,19 @@ import html2canvas from 'html2canvas';
                 </p>
                     <a style={{cursor:'pointer'}}  onClick={saveToDatabase}  >Save to Database</a>
              </div>
+        </div>
+      </div>
     </div>
-    </div>
-    </div>
-    )
-
-    
+    )   
 }
 
+const mapStateToProps = (state) => {
+  return{
+    document : state.document,
+    contactSection : state.contact,
+    educationSection : state.education,
+    auth:state.firebase.auth
+  }
+}
 
-
-export default (Finalize)
+export default connect(mapStateToProps)(Finalize)
