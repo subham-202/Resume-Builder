@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './static/scss/app.scss';
 import 'react-router-dom';
 import { Route,Switch } from 'react-router-dom';

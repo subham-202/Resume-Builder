@@ -5,43 +5,25 @@ import update from 'immutability-helper';
 // import * as authActions from '../../actions/authActions';
 // import { isLoaded } from 'react-redux-firebase'
 import { useHistory } from "react-router";
-<<<<<<< HEAD
-=======
 import { signin } from "../../redux/actions/authActions";
 import { connect } from "react-redux";
->>>>>>> master
 
   function Login(props) {
     console.log(props);
     let history = useHistory();
     const [email,setEmail] = useState('');
     const [password,setPassword]= useState('');
-<<<<<<< HEAD
-    // useEffect(() => {
-    //   if(props.auth?.uid){
-    //     history.push('/')
-    //   }
-    // }, [props])
-=======
     useEffect(() => {
       if(props.auth?.uid){
         history.push('/')
       }
     }, [props])
->>>>>>> master
 const handleEmail= (e)=>{
 setEmail(e.target.value);
 }
 const handlePassword=(e)=>{
   setPassword(e.target.value);
 }
-<<<<<<< HEAD
-    const onSubmit=()=>{
-    
-      // let obj = {email:email,password:password}
-      // console.log(obj)
-      // props.signIn(obj)
-=======
     const onSubmit=async()=>{
     
       let obj = {email:email,password:password}
@@ -50,7 +32,6 @@ const handlePassword=(e)=>{
       if(props.auth.uid!=null){
         history.push('/')
       }
->>>>>>> master
     }
 
 
@@ -73,13 +54,8 @@ const handlePassword=(e)=>{
                             <div className="effect"><input  type="password" name="password"  value={password || ''} onChange={handlePassword}/><span></span>
                             </div>
                         </div>
-<<<<<<< HEAD
-                        {props.authMine?.ErrorMessage?.message?<div className="input-group full">
-                                <span className="error-message" >{props.authMine?.ErrorMessage?.message}</span> 
-=======
                         {props.authMine?.error?<div className="input-group full">
                                 <span className="error-message" >{props.authMine?.error}</span> 
->>>>>>> master
                         </div> :<></>}  
                         <div className="form-buttons">
                             <button onClick={onSubmit} className="btn hvr-float-shadow" type='button'>Login</button>
@@ -97,13 +73,6 @@ const handlePassword=(e)=>{
   }
 
 
-<<<<<<< HEAD
-
- 
-
-
-  export default Login
-=======
   const mapStateToProps = (state) => {
     return{
       authMine : state.auth,
@@ -120,4 +89,3 @@ const handlePassword=(e)=>{
 
 
   export default connect(mapStateToProps,mapDispatchToProps)(Login)
->>>>>>> master
